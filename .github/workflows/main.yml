@@ -1,0 +1,22 @@
+name: Read JSON File Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  read-json-file-job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Read price.json from the repo
+      id: read_json_file
+      run: |
+        FILE_CONTENT=$(cat ../country_codes.txt.json)
+        echo "File content: $FILE_CONTENT"
+        echo "::set-output name=file_content::$FILE_CONTENT"
+
+    - name: Use JSON file content
+      run: echo "The JSON file content is ${{ steps.read_json_file.outputs.file_content }}"
